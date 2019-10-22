@@ -1,0 +1,13 @@
+{
+  "name": "imagehover",
+  "homepage": "https://github.com/ciar4n/imagehover.css",
+  "_release": "865150fb1b",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "865150fb1bc55b2360edb35bc22f1786609a31ce"
+  },
+  "_source": "https://github.com/ciar4n/imagehover.css.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/ciar4n/imagehover.css.git"
+}

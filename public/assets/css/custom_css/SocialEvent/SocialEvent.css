@@ -1,0 +1,74 @@
+.preloader
+{
+    background: none !important; 
+}
+.errorMessage, .successMessage {
+    display: none;
+}
+
+.avatarLink {
+    float:left;
+    width:13%;
+    height:33px;
+}
+.eventLink
+{
+    float:left;
+    width:85%;
+    margin-left:2%;
+}
+
+.eventListPanel
+{
+    background-color: #d9ecf5;
+    overflow: auto;
+}
+
+#unSyncGroupPanel .k-grid-content {
+   max-height: 400px;
+   min-height: 50px;
+}
+
+.k-grid-norecords
+{
+    height: auto !important;
+}
+
+.demo-section
+{
+    max-height: 300px;
+    overflow-y: scroll;
+    height: auto;
+    margin-left: 0;
+}
+
+#treeError
+{
+    color: red;
+    display: none;
+}
+
+#eventCategories .modal-dialog {
+    width: 440px;
+}
+
+.sharedGroupHeaderPanel
+{
+    background-color: #d9ecf5;
+}
+
+.sharedGroupFooterPanel
+{
+    padding-left: 33%;
+    text-align:inherit
+}
+
+#eventListGridPanel
+{
+    min-width: 780px
+}
+
+.syncGroupListDiv
+{
+    padding: 0px 0px 10px 0px;
+}

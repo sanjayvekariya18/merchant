@@ -1,0 +1,23 @@
+/***Session Timeout custom css***/
+.note.note-success {
+	background-color: #eef7ea;
+	border-color: #bbdba1;
+}
+.note {
+	margin: 0 0 20px 0;
+	padding: 15px 30px 15px 15px;
+	border-left: 5px solid #eee;
+}
+
+.note.note-danger {
+	background-color: rgba(251, 134, 120, .1);
+    border-color: #fb8678;
+}
+
+.note.note-danger span {
+	font-size: 17px;	
+}
+.note.note-danger i {
+	color: #fb8678;
+}
+

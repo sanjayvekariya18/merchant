@@ -1,0 +1,20 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class __model_class_name__ extends Model
+{
+	
+	protected $table = '__db_table_name__';
+	
+	protected $hidden = [
+        
+    ];
+    protected $primaryKey = '__primary_key__';
+
+	protected $guarded = [];
+
+}

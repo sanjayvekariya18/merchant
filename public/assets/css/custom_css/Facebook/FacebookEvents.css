@@ -1,0 +1,38 @@
+.facebookAvatarLink {
+    float:left;
+    width:13%;
+    height:33px;
+    border-radius: 40%;
+}
+.facebookEventLink
+{
+    float:left;
+    width:85%;
+    margin-left:2%;
+}
+
+.EventListTd
+{
+    width: 68%;
+}
+
+.syncEventTd
+{
+    width: 15%;
+}
+
+.facebookPanel
+{
+    background-color: #d9ecf5;
+    overflow: auto;
+}
+
+#facebookSyncEvent .k-grid-content {
+   max-height: 400px;
+   min-height: 50px;
+}
+
+.k-grid-norecords
+{
+    height: auto !important;
+}

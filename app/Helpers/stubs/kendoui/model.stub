@@ -1,0 +1,17 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class __model_class_name__ extends Model
+{
+	protected $connection = 'mysqlDynamicConnector';
+	
+	protected $table = '__db_table_name__';
+	
+	protected $primaryKey = '__primary_key__';
+
+	public $timestamps = false;
+}

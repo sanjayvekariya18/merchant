@@ -1,0 +1,177 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Helpers\ConnectionManager;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use Auth;
+use DB;
+use Validator;
+use Datatables;
+use App\ModuleFieldTypes;
+use Collective\Html\FormFacade as Form;
+use App\Http\Traits\PermissionTrait;
+use App\Module;
+use App\ModuleFields;
+use App\Helpers\LAHelper;
+
+use App\__model_name__;
+
+class __controller_class_name__ extends Controller
+{
+	use PermissionTrait;
+	
+	public $show_action = true;
+	public $view_col = '__view_column__';
+	public $listing_cols = ['__primary_key__', __listing_cols__];
+	
+	public function __construct() {
+
+		$this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+        $this->staffId = session()->has('staffId') ? session()->get('staffId') :"";
+        $this->identity_table_id = session()->has('identity_table_id') ? session()->get('identity_table_id') :"";
+        $this->staffName = session()->has('staffName') ? session()->get('staffName') :"";
+        $this->merchantId = session()->has('merchantId') ? session()->get('merchantId') :"";
+        $this->roleId = session()->has('role') ? session()->get('role') :"";
+        $this->locationId = session()->has('locationId') ? session()->get('locationId') :"";
+        $this->staffUrl = session()->has('staffUrl') ? session()->get('staffUrl') :"";
+        $this->userId = session()->has('userId') ? session()->get('userId') :"";
+
+        $connectionStatus = ConnectionManager::setDbConfig('__module_name__', 'mysqlDynamicConnector');
+
+        if (strcmp($connectionStatus['type'], "error") == 0) {
+
+            Session::flash('type', $connectionStatus['type']);
+            Session::flash('msg', $connectionStatus['message']);
+        }
+        return $next($request);
+       });
+
+	}
+	
+	/**
+	 * Display a listing of the __module_name__.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index()
+	{
+		$module = Module::get('__module_name__');
+		
+		if(Module::hasAccess($module->id,"access")) {
+			return View('__view_folder__.index', [
+				'show_actions' => $this->show_action,
+				'listing_cols' => $this->listing_cols,
+				'module' => $module
+			]);
+		} else {
+            return Redirect::back()->with('message', 'You are not authorized to use this functionality!');
+        }
+	}
+
+	public function get__module_name_camel_case__(Request $request)
+    {
+        $total_records = 0;
+
+        $__module_name_singular__Details = __model_name__::
+            select('__db_table_name__.*');
+
+        if (isset($request->filter)) {
+            $searchFilter = $request->filter['filters'][0]['value'];
+            if($searchFilter)
+            {
+                $__module_name_singular__Details->where(function ($query) use ($searchFilter,$request) {
+                    foreach ($request->filter['filters'] as $filterKey => $filterValue) {
+                        $query->orWhere('__db_table_name__.'.$filterValue['field'].'', 'LIKE', '%' . $searchFilter . '%');
+                    }
+                });
+            }
+        }
+
+        $total_records = $total_records + $__module_name_singular__Details->get()->count();
+        if(isset($request->take))
+        {
+            $__module_name_singular__Details->offset($request->skip)->limit($request->take);
+        }
+        $__module_name_singular__Values = $__module_name_singular__Details->get()->toArray();
+        $templateDefineArray = array("Multiselect");
+        $fields_popup = ModuleFields::getModuleFields('__module_name__');
+        $module = Module::where('name', '__module_name__')->orderBy('id', 'desc')->first();
+        foreach ($__module_name_singular__Values as $key => $value) {
+            for ($j=0; $j < count($this->listing_cols); $j++) { 
+                $col = $this->listing_cols[$j];
+                if(isset($value[$col]) && $fields_popup[$col] != null && starts_with($fields_popup[$col]->popup_vals, "@")) {
+                    $field_type = ModuleFieldTypes::find($fields_popup[$col]->field_type);
+                    if (in_array($field_type->name, $templateDefineArray))
+                    {
+                        $__module_name_singular__Values[$key][$fields_popup[$col]->popup_field_id] = ModuleFields::getKendoFieldValue($fields_popup[$col], $value[$col],$module->provider_id);
+                    } else {
+                        $__module_name_singular__Values[$key][$fields_popup[$col]->popup_field_name] = ModuleFields::getFieldValue($fields_popup[$col], $value[$col],$module->provider_id);
+                    }
+
+                } else if(isset($value[$col]) && !!$value[$col] && isset($fields_popup[$col]) && !!$fields_popup[$col] && starts_with($fields_popup[$col]->popup_vals, "[") ){
+                    $field_type = ModuleFieldTypes::find($fields_popup[$col]->field_type);
+                    if (in_array($field_type->name, $templateDefineArray))
+                    {
+                        $TestingEventValues[$key][$fields_popup[$col]->colname] = json_decode($TestingEventValues[$key][$fields_popup[$col]->colname],true);
+                    }
+
+                }
+            }
+        }
+        $__module_name_camel_case__data['__module_name_singular__'] = array_values($__module_name_singular__Values);
+        $__module_name_camel_case__data['total'] = $total_records;
+        return json_encode($__module_name_camel_case__data); 
+    }
+    /*__dropdown_function_var__*/
+
+    /**
+     * Update the specified __singular_var__ in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update__module_name_camel_case__(Request $request)
+    {
+        $callback = $request->callback;
+        if(Module::hasAccess("__module_name__", "manage")) {
+            
+            $rules = Module::validateRules("__module_name__", $request, true);
+            
+            $validator = Validator::make($request->all(), $rules);
+            
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();;
+            }
+            
+            Module::updateRow("__module_name__", $request, $request->__primary_key__);
+            return $callback."(".json_encode($request).")";
+            
+        } else {
+            return $callback."(".json_encode($request).")";
+        }
+    }
+
+    /**
+     * Remove the specified __singular_var__ from storage.
+     *
+     * @param  object  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function delete__module_name_camel_case__(Request $request)
+    {
+        $callback = $request->callback;
+        if(Module::hasAccess("__module_name__", "delete")) {
+            __model_name__::find($request->__primary_key__)->delete();
+            return $callback."(".json_encode($request).")";
+        } else {
+            return $callback."(".json_encode($request).")";
+        }
+    }
+
+    /*__target__table__node__*/
+}

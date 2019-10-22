@@ -1,0 +1,8 @@
+
+	/* ================== __module_name__ ================== */
+Route::group(['middleware'=> 'web','middleware' => 'prevent-back-history'],function() {	
+	Route::resource('__db_table_name__', '__controller_class_name__');
+	Route::post('__db_table_name__/get__module_name_camel_case__','__controller_class_name__@get__module_name_camel_case__');
+	Route::post('__db_table_name__/update__module_name_camel_case__','__controller_class_name__@update__module_name_camel_case__');
+	Route::post('__db_table_name__/delete__module_name_camel_case__','__controller_class_name__@delete__module_name_camel_case__');
+});

@@ -1,0 +1,2 @@
+Route::group(['middleware'=> 'web','middleware' => 'prevent-back-history'],function() {	
+});

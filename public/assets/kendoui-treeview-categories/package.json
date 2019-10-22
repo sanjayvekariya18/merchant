@@ -1,0 +1,26 @@
+{
+  "name"        : "Treeview-test",
+  "description" : "Unit testing for kendoui-treeview-categories module",
+  "private" : true,
+  "repository" :
+   { 
+     "type" : "git",
+     "url" : "http://github.com/npm/npm.git"
+   },
+  "scripts": {
+    "test": "npm run testTreeView",
+    "testTreeView": "mocha-phantomjs ./test/TreeViewTest.html"
+  },
+  "dependencies" : {
+    "mocha"     : "1.13.x",
+    "commander" : "1.2.x",
+    "which"     : "~1.0.5",
+    "mocha-phantomjs": "3.3.2"
+  },
+  "devDependencies" : {
+    "chai"          : "1.8.x",
+    "coffee-script" : "1.6.x",
+    "requirejs"     : "2.1.x",
+    "jquery"        : "2.1.0"
+  }
+}
